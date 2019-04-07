@@ -33,7 +33,7 @@ router.post('/new', function(req, res){
             console.log(req.body)
             var user = new User({
                 username : req.body.username,
-                userpwd: req.body.password,
+                password: req.body.password,
                 phone: req.body.phone,
             });
             user.save(function (err, result) {
@@ -68,7 +68,7 @@ router.post('/edit', function(req, res){
         }else{
             var user = new User({
                 username : req.body.username,
-                userpwd: req.body.username,
+                password: req.body.username,
                 phone: req.body.phone,
             });
             user.save(function (err, result) {

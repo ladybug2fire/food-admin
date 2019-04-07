@@ -36,13 +36,14 @@ app.get('/', routes.index);
 app.get('/signup', routes.signup);
 app.get('/login', routes.login);
 app.get('/order', routes.order);
-app.get('/api', require('./routes/api'));
 app.get('/admin', require('./routes/admin/index').index);
 app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
 app.get('/admin/register', require('./routes/admin/login').register);
 app.use('/admin/user', require('./routes/admin/user'))
 app.use('/admin/movie', require('./routes/admin/movie'))
+app.use('/api', require('./routes/api'));
+
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))
 app.use(express.static("static"));

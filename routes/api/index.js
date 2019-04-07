@@ -25,7 +25,7 @@ router.get('/getuser', function(req, res){
     })
 });
 
-router.post('/new', function(req, res){
+router.post('/register', function(req, res){
     User.find({ username: req.body.username}, function(err, result){
         if(result.length){
             res.send('用户名已经被占用')
@@ -33,8 +33,7 @@ router.post('/new', function(req, res){
             console.log(req.body)
             var user = new User({
                 username : req.body.username,
-                userpwd: req.body.password,
-                phone: req.body.phone,
+                password: req.body.password,
             });
             user.save(function (err, result) {
                 if (err) {
@@ -68,7 +67,7 @@ router.post('/edit', function(req, res){
         }else{
             var user = new User({
                 username : req.body.username,
-                userpwd: req.body.username,
+                password: req.body.username,
                 phone: req.body.phone,
             });
             user.save(function (err, result) {
