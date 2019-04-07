@@ -28,9 +28,11 @@ router.get('/getuser', function(req, res){
 router.post('/register', function(req, res){
     User.find({ username: req.body.username}, function(err, result){
         if(result.length){
-            res.send('用户名已经被占用')
+            res.json({
+                code: 500,
+                msg: '用户名已经被占用'
+            })
         }else{
-            console.log(req.body)
             var user = new User({
                 username : req.body.username,
                 password: req.body.password,
@@ -50,6 +52,29 @@ router.post('/register', function(req, res){
                     }) 
                 }
             });
+        }
+    })
+})
+
+router.post('/login', function(req, res){
+    User.findOne({ username: req.body.username}, function(err, result){
+        if(err){
+            res.json({
+                code: 500,
+                msg: '没有此用户'
+            })
+        } else{
+            if(result.password === req.body.password){
+                res.json({
+                    code: 200,
+                    msg: '登入成功'
+                }) 
+            }else{
+                res.json({
+                    code: 500,
+                    msg: '密码错误'
+                }) 
+            }
         }
     })
 })
