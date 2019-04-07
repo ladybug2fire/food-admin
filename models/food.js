@@ -4,15 +4,16 @@
 var mongoose = require('../config/db'),
     Schema = mongoose.Schema;
 
-var MovieSchema = new Schema({
-    moviename: { type: String },
+var FoodSchema = new Schema({
+    foodname: { type: String },
+    tags: [{label: {type: String}, id: {type: String}}],
     picUrl: { type: String },
-    seats: { type: String },
-    star: {type: Number },
-    addTime: {type: String},
-    sales: {type: Number},
-    movieyear: {type: String},
-    desc: {type: String},
+    diffculty: String,
+    addTime: String,
+    cookTime: String,
+    prepareTime: String,
+    price: Number,
+    steps: [{title: String, picUrl: String}]
 });
 
-module.exports = mongoose.model('Movie',MovieSchema);
+module.exports = mongoose.model('Food',FoodSchema);
