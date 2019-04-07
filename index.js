@@ -19,12 +19,24 @@ app.set('layout extractScripts', true)
 app.set('layout extractStyles', true)
 
 /**
+ * 允许跨域
+ */
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials','true');
+    next();
+};
+app.use(allowCrossDomain);
+/**
  * set Routes
  */
 app.get('/', routes.index);
 app.get('/signup', routes.signup);
 app.get('/login', routes.login);
 app.get('/order', routes.order);
+app.get('/api', require('./routes/api'));
 app.get('/admin', require('./routes/admin/index').index);
 app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
