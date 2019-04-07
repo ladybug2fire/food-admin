@@ -1,3 +1,6 @@
+/**
+ * 菜谱
+ */
 var mongoose = require('../config/db'),
     Schema = mongoose.Schema;
 

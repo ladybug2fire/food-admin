@@ -41,7 +41,6 @@ app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
 app.get('/admin/register', require('./routes/admin/login').register);
 app.use('/admin/user', require('./routes/admin/user'))
-app.use('/admin/movie', require('./routes/admin/movie'))
 app.use('/api', require('./routes/api'));
 
 
