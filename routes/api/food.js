@@ -39,16 +39,24 @@ router.post("/add", function(req, res) {
         msg: "该菜名已经被占用"
       });
     } else {
-      var food = new Food(
-        _.pick(this.body, [
+      var jsonObj = _.assign(
+        _.pick(req.body, [
           "foodname",
           "tags",
           "diffculty",
           "cookTime",
           "prepareTime",
-          "price"
-        ])
+          "price",
+          "picUrl",
+          "material"
+        ]),
+        {
+          addTime: new Date().toLocaleString()
+        }
       );
+      console.log("req.body", jsonObj);
+
+      var food = new Food(jsonObj);
       food.save(function(err, result) {
         if (err) {
           console.log("Error:" + err);
@@ -59,7 +67,7 @@ router.post("/add", function(req, res) {
         } else {
           res.json({
             code: 200,
-            msg: "创建账号成功"
+            msg: "添加成功"
           });
         }
       });
@@ -143,9 +151,19 @@ router.get("/delete", function(req, res) {
 
 router.get("/get", function(req, res) {
   Food.findById(req.query.id, function(err, result) {
-    res.json(result);
+      console.log(req.query.id)
+    if (err) {
+        res.json({
+          code: 500,
+          msg: "异常"
+        });
+      } else {
+        res.json({
+          code: 200,
+          data: result
+        });
+      }
   });
-  // res.render("admin/index", {title: '登入', layout: 'admin/layout' });
 });
 
 module.exports = router;

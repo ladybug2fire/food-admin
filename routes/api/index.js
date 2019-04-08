@@ -67,7 +67,8 @@ router.post('/login', function(req, res){
             if(result.password === req.body.password){
                 res.json({
                     code: 200,
-                    msg: '登入成功'
+                    msg: '登入成功',
+                    data: result
                 }) 
             }else{
                 res.json({
@@ -84,32 +85,19 @@ router.get('/new', function(req, res){
 })
 
 // 编辑要修改下
-router.post('/edit', function(req, res){
-    console.log(req.body.name, req.body)
-    User.find({ username: req.body.username}, function(err, result){
-        if(result.length){
-            res.send('username is in used')
-        }else{
-            var user = new User({
-                username : req.body.username,
-                password: req.body.username,
-                phone: req.body.phone,
-            });
-            user.save(function (err, result) {
-                if (err) {
-                    console.log("Error:" + err);
-                    res.json({
-                        code: 500,
-                        msg: err,
-                    })
-                }
-                else {
-                    res.json({
-                        code: 200,
-                        msg: '创建账号成功'
-                    }) 
-                }
-            });
+router.post('/updateUser', function(req, res){
+    User.findByIdAndUpdate(req.body._id, req.body, function(err, result){
+        if (err) {
+            res.json({
+                code: 500,
+                msg: err,
+            })
+        }
+        else {
+            res.json({
+                code: 200,
+                msg: '更新成功',
+            }) 
         }
     })
 })

@@ -13,7 +13,8 @@ var FoodSchema = new Schema({
     cookTime: String,
     prepareTime: String,
     price: Number,
-    steps: [{title: String, picUrl: String}]
+    steps: [{title: String, picUrl: String}],
+    mertial: [{title: String, amount: String}]
 });
 
 module.exports = mongoose.model('Food',FoodSchema);
