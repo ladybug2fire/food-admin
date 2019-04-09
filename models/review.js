@@ -10,6 +10,7 @@ var ReviewSchema = new Schema({
     star: { type: Number }, //评分
     addTime: {type: String}, // 添加时间
     desc: {type: String},
+    foodid: String,  // 菜谱 id
 });
 
 module.exports = mongoose.model('Review',ReviewSchema);

@@ -39,10 +39,11 @@ app.get('/order', routes.order);
 app.get('/admin', require('./routes/admin/index').index);
 app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
-app.get('/admin/register', require('./routes/admin/login').register);
+
 app.use('/admin/user', require('./routes/admin/user'));
 app.use('/api', require('./routes/api'));
 app.use('/api/food', require('./routes/api/food'));
+app.use('/api/review', require('./routes/api/review'));
 
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))
