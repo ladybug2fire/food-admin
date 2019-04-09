@@ -1,13 +1,16 @@
 <%- contentFor('body') %>
 
-<a href="/admin/good/new"><button class="btn btn-primary btn-sm">新增商品</button></a>
+<a href="/admin/good/new"><button class="btn btn-primary btn-sm">发布商品</button></a>
+
 <table id="good" class="table table-bordered table-hover">
     <thead>
         <tr>
-            <th>图片</th>
+            <th>海报</th>
             <th>商品名</th>
             <th>上架时间</th>
-            <th>价格</th>
+            <th>上映年份</th>
+            <th>评分</th>
+            <th>已售</th>
             <th>操作</th>
         </tr>
     </thead>
@@ -17,8 +20,10 @@
             <td><img class="snap-shot" src="<%- l.picUrl %>" alt=""></td>
             <td><%- l.goodname %></td>
             <td><%- l.addTime %></td>
-            <td><%- l.price %></td>
-            <td><a style="cursor:pointer" onclick="deleteItem('<%- l._id %>')">删除</a></td>
+            <td><%- l.goodyear %></td>
+            <td><%- l.star %></td>
+            <td><%- l.sales %></td>
+            <td><a style="cursor:pointer" onclick="deleteGood('<%- l._id %>')">删除</a></td>
         </tr>
         <% }); %>
     </tbody>
@@ -29,7 +34,7 @@
     }
 </style>
 <script>
-    var deleteItem = function (id) {
+    var deleteGood = function (id) {
         $.get('/admin/good/delete', {
             id,
         }, function (res) {

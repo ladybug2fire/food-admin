@@ -116,14 +116,12 @@ router.get('/delete', function(req, res){
             })
         }
     })
-    // res.render("admin/index", {title: '登入', layout: 'admin/layout' });
 });
 
 router.get('/get', function(req, res){
     User.findById(req.query.id, function(err, result){
         res.json(result)
     })
-    // res.render("admin/index", {title: '登入', layout: 'admin/layout' });
 });
 
 module.exports = router;

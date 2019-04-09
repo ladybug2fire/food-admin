@@ -41,8 +41,12 @@ app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
 
 app.use('/admin/user', require('./routes/admin/user'));
+app.use('/admin/good', require('./routes/admin/good'));
+app.use('/admin/food', require('./routes/admin/food'));
+app.use('/admin/order', require('./routes/admin/order'));
 app.use('/api', require('./routes/api'));
 app.use('/api/food', require('./routes/api/food'));
+app.use('/api/good', require('./routes/api/good'));
 app.use('/api/review', require('./routes/api/review'));
 
 
