@@ -1,8 +1,8 @@
 <%- contentFor('body') %>
 
-<a href="/admin/movie/new"><button class="btn btn-primary btn-sm">发布商品</button></a>
+<a href="/admin/good/new"><button class="btn btn-primary btn-sm">发布商品</button></a>
 
-<table id="movie" class="table table-bordered table-hover">
+<table id="good" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>海报</th>
@@ -18,12 +18,12 @@
         <% list.forEach(function(l){ %>
         <tr>
             <td><img class="snap-shot" src="<%- l.picUrl %>" alt=""></td>
-            <td><%- l.moviename %></td>
+            <td><%- l.goodname %></td>
             <td><%- l.addTime %></td>
-            <td><%- l.movieyear %></td>
+            <td><%- l.goodyear %></td>
             <td><%- l.star %></td>
             <td><%- l.sales %></td>
-            <td><a style="cursor:pointer" onclick="deleteMovie('<%- l._id %>')">删除</a></td>
+            <td><a style="cursor:pointer" onclick="deleteGood('<%- l._id %>')">删除</a></td>
         </tr>
         <% }); %>
     </tbody>
@@ -34,8 +34,8 @@
     }
 </style>
 <script>
-    var deleteMovie = function (id) {
-        $.get('/admin/movie/delete', {
+    var deleteGood = function (id) {
+        $.get('/admin/good/delete', {
             id,
         }, function (res) {
             if (res.code === 200) {
@@ -46,6 +46,6 @@
         })
     }
     $(function () {
-        $('#movie').DataTable()
+        $('#good').DataTable()
     })
 </script>
