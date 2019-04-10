@@ -1,7 +1,7 @@
 
 
 exports.index = function (req, res) {
-    res.send('hello world')
+    res.redirect('/admin/')
 }
 
 exports.signup = function(req, res){

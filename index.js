@@ -44,11 +44,13 @@ app.use('/admin/user', require('./routes/admin/user'));
 app.use('/admin/good', require('./routes/admin/good'));
 app.use('/admin/food', require('./routes/admin/food'));
 app.use('/admin/order', require('./routes/admin/order'));
+app.use('/admin/menu', require('./routes/admin/menu'));
 app.use('/api', require('./routes/api'));
 app.use('/api/food', require('./routes/api/food'));
 app.use('/api/good', require('./routes/api/good'));
 app.use('/api/order', require('./routes/api/order'));
 app.use('/api/review', require('./routes/api/review'));
+app.use('/api/menu', require('./routes/api/menu'));
 
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))

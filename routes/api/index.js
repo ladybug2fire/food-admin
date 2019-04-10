@@ -33,10 +33,10 @@ router.post('/register', function(req, res){
                 else {
                     var defaultMenu = new Menu({
                         userid: result._id,
-                        username: result.name,
-                        menuname: '默认收藏夹',
+                        username: result.username,
+                        menuname: `${result.username}的菜单`,
                         addTime: new Date().toLocaleString(),
-                        ispublic: false,
+                        ispublic: true,
                     });
                     defaultMenu.save(function(err, savedMenu){
                         if(err){
@@ -58,14 +58,14 @@ router.post('/register', function(req, res){
 })
 
 router.post('/login', function(req, res){
-    User.findOne({ username: req.body.username}, function(err, result){
+    User.findOne({ username: req.body.username, password: req.body.password}, function(err, result){
         if(err){
             res.json({
                 code: 500,
                 msg: '没有此用户'
             })
         } else{
-            if(result.password === req.body.password){
+            if(result && result.password === req.body.password){
                 res.json({
                     code: 200,
                     msg: '登入成功',
