@@ -1,4 +1,5 @@
 var User = require("../../models/user.js");
+var Menu = require("../../models/menu.js");
 var express = require('express')
 var router = express.Router()
 
@@ -6,22 +7,6 @@ router.get('/', function(req, res){
     User.find(function(err, docs){
         // res.json(docs)
         res.render("admin/user/list", {title: '用户管理', layout: 'admin/layout', list: docs });
-    })
-});
-
-router.get('/getuser', function(req, res){
-    User.find(function(err, docs){
-        if(err){
-            res.json({
-                code: 500,
-                msg: '错误'
-            })
-        }else{
-            res.json({
-                code: 200,
-                data: docs,
-            })
-        }
     })
 });
 
@@ -46,10 +31,26 @@ router.post('/register', function(req, res){
                     })
                 }
                 else {
-                    res.json({
-                        code: 200,
-                        msg: '创建账号成功'
-                    }) 
+                    var defaultMenu = new Menu({
+                        userid: result._id,
+                        username: result.name,
+                        menuname: '默认收藏夹',
+                        addTime: new Date().toLocaleString(),
+                        ispublic: false,
+                    });
+                    defaultMenu.save(function(err, savedMenu){
+                        if(err){
+                            res.json({
+                                code: 500,
+                                msg: err,
+                            })
+                        }else{
+                            res.json({
+                                code: 200,
+                                msg: '创建账号成功'
+                            }) 
+                        }
+                    })
                 }
             });
         }
@@ -78,10 +79,6 @@ router.post('/login', function(req, res){
             }
         }
     })
-})
-
-router.get('/new', function(req, res){
-    res.render("admin/user/new", {title: '创建用户', layout: 'admin/layout'})
 })
 
 // 编辑要修改下
@@ -115,12 +112,6 @@ router.get('/delete', function(req, res){
                 msg: '删除成功'
             })
         }
-    })
-});
-
-router.get('/get', function(req, res){
-    User.findById(req.query.id, function(err, result){
-        res.json(result)
     })
 });
 
