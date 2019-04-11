@@ -4,7 +4,16 @@ var routes = require('./routes/index');
 
 var expressLayouts = require('express-ejs-layouts');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 var app = express()
+app.use(cookieParser('saltfish'));
+app.use(session({
+    secret: 'saltfish',
+    resave: false,
+    saveUninitialized: true
+}))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +48,8 @@ app.get('/order', routes.order);
 app.get('/admin', require('./routes/admin/index').index);
 app.get('/admin/login', require('./routes/admin/login').login);
 app.get('/admin/register', require('./routes/admin/login').register);
+app.post('/admin/login', require('./routes/admin/login').dologin);
+app.get('/admin/logout', require('./routes/admin/login').adminlogout);
 
 app.use('/admin/user', require('./routes/admin/user'));
 app.use('/admin/good', require('./routes/admin/good'));
