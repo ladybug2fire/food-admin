@@ -48,7 +48,10 @@ router.post("/add", function(req, res) {
           "prepareTime",
           "price",
           "picUrl",
-          "material"
+          "foodtag",
+          "diettag",
+          "username",
+          "userid",
         ]),
         {
           addTime: new Date().toLocaleString()
@@ -98,40 +101,6 @@ router.post("/login", function(req, res) {
   });
 });
 
-router.get("/new", function(req, res) {
-  res.render("admin/food/new", { title: "创建用户", layout: "admin/layout" });
-});
-
-// 编辑要修改下
-router.post("/edit", function(req, res) {
-  console.log(req.body.name, req.body);
-  Food.find({ foodname: req.body.foodname }, function(err, result) {
-    if (result.length) {
-      res.send("foodname is in used");
-    } else {
-      var food = new Food({
-        foodname: req.body.foodname,
-        password: req.body.foodname,
-        phone: req.body.phone
-      });
-      food.save(function(err, result) {
-        if (err) {
-          console.log("Error:" + err);
-          res.json({
-            code: 500,
-            msg: err
-          });
-        } else {
-          res.json({
-            code: 200,
-            msg: "创建账号成功"
-          });
-        }
-      });
-    }
-  });
-});
-
 router.get("/delete", function(req, res) {
   Food.findByIdAndRemove(req.query.id, (err, result) => {
     if (err) {
@@ -151,6 +120,30 @@ router.get("/delete", function(req, res) {
 
 router.get("/get", function(req, res) {
   Food.findById(req.query.id, function(err, result) {
+      console.log(req.query.id)
+    if (err) {
+        res.json({
+          code: 500,
+          msg: "异常"
+        });
+      } else {
+        res.json({
+          code: 200,
+          data: result
+        });
+      }
+  });
+});
+
+router.get("/search", function(req, res) {
+  let tag = req.query.tag;
+  if(!tag){
+    res.json({
+      code: 500,
+      msg: "条件为空"
+    }); 
+  }
+  Food.find().or([{foodname: {$regex:tag, $options: 'i'}}, {diettag:{$regex: tag, $options: 'i'}},{foodtag:{$regex: tag, $options: 'i'}},{username: {$regex: tag, $options:'i'}}]).exec(function(err, result) {
       console.log(req.query.id)
     if (err) {
         res.json({

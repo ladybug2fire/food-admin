@@ -11,7 +11,11 @@ var FoodSchema = new Schema({
     diffculty: String,
     addTime: String,
     cookTime: String,
+    username: String,
+    userid: String,
     prepareTime: String,
+    foodtag: String,
+    diettag: String,
     price: Number,
     steps: [{title: String, picUrl: String}],
     mertial: [{title: String, amount: String}]
