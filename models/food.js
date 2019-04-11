@@ -6,7 +6,6 @@ var mongoose = require('../config/db'),
 
 var FoodSchema = new Schema({
     foodname: { type: String },
-    tags: [{label: {type: String}, id: {type: String}}],
     picUrl: { type: String },
     diffculty: String,
     addTime: String,
@@ -17,8 +16,7 @@ var FoodSchema = new Schema({
     foodtag: String,
     diettag: String,
     price: Number,
-    steps: [{title: String, picUrl: String}],
-    mertial: [{title: String, amount: String}]
+    detail: String,
 });
 
 module.exports = mongoose.model('Food',FoodSchema);

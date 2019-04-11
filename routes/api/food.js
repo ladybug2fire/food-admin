@@ -42,7 +42,7 @@ router.post("/add", function(req, res) {
       var jsonObj = _.assign(
         _.pick(req.body, [
           "foodname",
-          "tags",
+          "detail",
           "diffculty",
           "cookTime",
           "prepareTime",
