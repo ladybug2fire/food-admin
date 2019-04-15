@@ -52,6 +52,7 @@ router.post("/add", function(req, res) {
           "diettag",
           "username",
           "userid",
+          "desc",
         ]),
         {
           addTime: new Date().toLocaleString()
