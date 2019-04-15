@@ -7,7 +7,7 @@ var multer = require("multer");
 var upload = multer({ dest: "uploads/img/" });
 
 router.get("/", function(req, res) {
-  Food.find(function(err, docs) {
+  Food.find().sort({"_id":-1}).exec(function(err, docs) {
     if (err) {
       res.json({
         code: 500,

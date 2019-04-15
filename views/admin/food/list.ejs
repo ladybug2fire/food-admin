@@ -6,7 +6,6 @@
             <th>图片</th>
             <th>商品名</th>
             <th>发布时间</th>
-            <th>评分</th>
             <th>操作</th>
         </tr>
     </thead>
@@ -16,7 +15,6 @@
             <td><img class="snap-shot" src="<%- l.picUrl %>" alt=""></td>
             <td><%- l.foodname %></td>
             <td><%- l.addTime %></td>
-            <td><%- l.star %></td>
             <td><a style="cursor:pointer" onclick="deleteGood('<%- l._id %>')">删除</a></td>
         </tr>
         <% }); %>
