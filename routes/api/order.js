@@ -26,21 +26,31 @@ router.get('/list', function(req, res){
 })
 
 // 下单
-router.post('/buy', function(req, res) {
+router.post('/buy', async function(req, res) {
     let order = new Order(req.body);
-    console.log(order);
-    order.save(function(err, result2) {
-        if (err) {
+    var goods = req.body.goods;
+    try{
+        var result = await order.save();
+        try{
+            var les = await Promise.all(goods.map(e=>{
+                return Good.findByIdAndUpdate(e.goodid, {$inc:{amount: -e.count}})
+            }))
             res.json({
-            code: 500
+                code: 200,
+                msg: "下单成功"
             });
-        } else {
+        }catch(err){
             res.json({
-            code: 200,
-            msg: "下单成功"
-            });
+                code: 500,
+                msg: err
+            }); 
         }
-    });
+    }catch(err){
+        res.json({
+            code: 500,
+            msg: err
+        }); 
+    }
 })
 
 
