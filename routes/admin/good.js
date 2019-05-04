@@ -10,6 +10,27 @@ var _ = require('lodash')
 
 var upload = multer({ dest: 'uploads/img/'});
 
+router.post("/edit", upload.single('file'),  function(req, res, next){
+    Good.findByIdAndUpdate(req.body.id, 
+       req.body
+    , function(err, result){
+        console.log(result);
+        if (err) {
+            console.log("Error:" + err);
+            res.json({
+                code: 500,
+                msg: err,
+            })
+        }
+        else {
+            res.json({
+                code: 200,
+                msg: '修改成功'
+            }) 
+        }
+    })
+});
+
 router.post("/upload", upload.single('file'), function(req, res, next){
     let obj = req.file;
     let good = new Good({
@@ -18,6 +39,7 @@ router.post("/upload", upload.single('file'), function(req, res, next){
         picUrl: '/img/' + obj.filename,
         desc: req.body.desc,
         price: req.body.price,
+        amount: req.body.amount,
     });
     good.save(function (err, result) {
         if (err) {
@@ -59,7 +81,13 @@ router.get('/list', function(req, res){
 })
 
 router.get('/new', function(req, res){
-    res.render("admin/good/new", {title: '发布商品', layout: 'admin/layout'})
+    if(req.query.id){
+        Good.findById(req.query.id,function(err, good){
+            res.render("admin/good/new", {title: '编辑商品', layout: 'admin/layout', item: good , username: req.session.username});
+        })
+    }else{
+        res.render("admin/good/new", {title: '发布商品', layout: 'admin/layout'})
+    }
 })
 
 router.get('/delete', function(req, res){

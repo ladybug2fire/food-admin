@@ -13,6 +13,12 @@ router.get('/', function(req, res){
     })
 });
 
+router.get('/detail', function(req, res){
+    Food.findById(req.query.id,function(err, item){
+        res.render("admin/food/detail", {title: '详情', layout: 'admin/layout', item });
+    })
+});
+
 router.get('/delete', function(req, res){
     Food.findByIdAndRemove(req.query.id,function(err, result){
         if(err){

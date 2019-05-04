@@ -8,19 +8,29 @@
     <div class="box-body">
       <div class="form-group">
         <label for="goodname">商品名</label>
-        <input type="text" class="form-control" id="goodname" placeholder="商品名" name="goodname">
+        <input type="text" class="form-control" id="goodname" 
+        value="<%- item && item.goodname %>" placeholder="商品名" name="goodname">
       </div>
       <div class="form-group">
         <label for="price">售价</label>
-        <input type="number" class="form-control" id="price" placeholder="售价" name="price">
+        <input type="number" class="form-control" id="price" 
+        value="<%- item && item.price %>" placeholder="售价" name="price">
+      </div>
+      <div class="form-group">
+        <label for="amount">库存</label>
+        <input type="number" class="form-control" id="amount" 
+        value="<%- item && item.amount %>" placeholder="库存" name="amount">
       </div>
       <div class="form-group">
         <label for="desc">简介</label>
-        <textarea class="form-control" id="desc" placeholder="简介" name="desc"></textarea>
+        <textarea class="form-control" id="desc" placeholder="简介" name="desc"><%- item && item.desc %></textarea>
       </div>
       <div class="form-group">
-        <label for="goodpost">上传图片</label>
-        <input type="file" id="goodpost" name="file">
+        <% if(item && item._id) { %>
+            <img class="snap-shot" src="<%- item && item.picUrl%>" alt="">
+        <% } else { %>
+            <input type="file" name="file" id="id-input-file-2" required/>
+        <% } %>
         <p class="help-block"></p>
       </div>
     </div>
@@ -35,11 +45,15 @@
 <script>
   var submitData = function () {
     var data = new FormData($('#goodForm')[0]);
+    var url = "<%- item && item._id ? '/admin/good/edit': '/admin/good/upload' %>";
+    <% if(item && item._id) {%>
+        data.append('id', '<%- item._id %>')
+    <% }%>
     $.ajax(
       {
         type: "POST",
         dataType: "json",
-        url: "/admin/good/upload",
+        url,
         contentType: false,
         processData: false,
         data,
@@ -56,3 +70,10 @@
       })
   }
 </script>
+<style>
+    .snap-shot {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+</style>
